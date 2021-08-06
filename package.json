@@ -1,0 +1,27 @@
+{
+  "name": "apidb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "knex": "^0.95.9",
+    "objection": "^2.2.15",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "scripts": {
+    "seed-run": "npx knex seed:run --knexfile ./db/knexfile.js",
+    "rollback": "npx knex migrate:rollback --knexfile ./db/knexfile.js",
+    "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.js",
+    "migrate-make": "npx knex migrate:make init --knexfile ./db/knexfile.js",
+    "migrate-down": "npx knex migrate:down --knexfile ./db/knexfile.js",
+    "serve": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
