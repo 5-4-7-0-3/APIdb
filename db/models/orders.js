@@ -10,8 +10,7 @@ class Orders extends Model {
         user: {
             relation: Model.HasOneRelation,
             modelClass: User,
-            join: {
-                from: 'orders.user_id',
+            join: {from: 'orders.user_id',
                 to: 'user.id'
             }
         }

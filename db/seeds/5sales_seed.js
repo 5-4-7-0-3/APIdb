@@ -1,4 +1,5 @@
 const { knexSnakeCaseMappers } = require("objection");
+const Objection = require("objection");
 
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
@@ -10,17 +11,18 @@ exports.seed = async function (knex) {
       return knex('sales').insert([{
         product_id: '1',
         order_id: '1',
-        quantiti: '5'
+        quantity: '5'
       },
       {
         product_id: '2',
         order_id: '2',
-        quantiti: '15'
+        quantity: '15'
       },
       {
         product_id: '4',
         order_id: '3',
-        quantiti: '10'
+        quantity: '10'
       }]);
     });
+  Objection.knexSnakeCaseMappers()
 };
