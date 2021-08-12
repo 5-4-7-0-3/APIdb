@@ -9,18 +9,18 @@ class OrdersService {
     }
 
     getOrders() {
-        return this.ordersDAO.ordersDAO.getOrders();
+        return this.ordersDAO.getOrders();
     }
 
     getOneOrder(id) {
-        return this.ordersDAO.ordersDAO.getOneOrder(id);
+        return this.ordersDAO.getOneOrder(id);
     }
 
     updateOrder(id,  orders_date, user_id) {
-        return this.ordersDAO.ordersDAO.updateOrder(id,  orders_date, user_id);
+        return this.ordersDAO.updateOrder(id,  orders_date, user_id);
     }
     deleteOrder(id) {
-        return this.ordersDAO.ordersDAO.deleteOrder(id);
+        return this.ordersDAO.deleteOrder(id);
     }
 }
 module.exports = OrdersService
