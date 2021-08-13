@@ -25,6 +25,9 @@ class UserService {
     deleteUser(id) {
         return this.userDAO.deleteUser(id);
     }
+    authUser(login, password) {
+        return this.userDAO.authUser(login, password);
+    }
 }
 
     module.exports = UserService

@@ -32,6 +32,11 @@ class UserDAO {
 
 
     }
+    authUser(login, password) {
+            return User.query().select('login', 'password')
+
+    }
+
 }
 
 module.exports = new UserDAO()

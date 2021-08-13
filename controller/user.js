@@ -53,6 +53,21 @@ class UserController {
             res.status(500).json(err);
         }
     }
+    async authUser(req, res) {
+        try {
+            const {login, password} = req.body
+            console.log(req.body)
+
+            const newUser = await this.userService.authUser(login, password)
+            console.log({login, password})
+            res.json(req.body)
+
+        }
+        catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    }
 }
 
 module.exports = UserController
