@@ -1,4 +1,3 @@
-
 const setupDb = require('./db/db-setup');
 const express = require('express');
 const routerUser = require('./routes/user.js');
@@ -6,6 +5,7 @@ const routerOrders = require('./routes/orders.js');
 const routerProduct = require('./routes/product.js');
 const routerProductCategory = require('./routes/product_category.js');
 const routerSales = require('./routes/sales.js');
+
 
 // set up database with objection and knex
 setupDb();

@@ -1,13 +1,11 @@
-const {callback} = require("pg/lib/native/query");
-const {userDAO} = require("../DAO");
-
 class UserService {
 
     constructor(userDAO) {
         this.userDAO = userDAO
     }
-    createUser(name, login, password) {
-        return this.userDAO.createUser(name, login, password)
+
+    createUser(name, login, hashPassword) {
+        return this.userDAO.createUser(name, login, hashPassword)
     }
 
     getUsers() {
@@ -18,16 +16,21 @@ class UserService {
         return this.userDAO.getOneUser(id);
     }
 
-    updateUser(id, name, login, password) {
-        return this.userDAO.updateUser(id, name, login, password);
+    updateUser(id, name, login, password, role) {
+        return this.userDAO.updateUser(id, name, login, password, role);
     }
 
     deleteUser(id) {
         return this.userDAO.deleteUser(id);
     }
+
+    loginVerification(login) {
+        return this.userDAO.loginVerification(login);
+    }
+
     authUser(login, password) {
         return this.userDAO.authUser(login, password);
     }
 }
 
-    module.exports = UserService
+module.exports = UserService

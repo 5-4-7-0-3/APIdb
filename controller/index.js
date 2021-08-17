@@ -6,10 +6,6 @@ const ProductCategoryController = require('./product_category.js')
 const OrdersController = require('./orders.js')
 
 
-
-
-
-
 module.exports = {
     productController: new ProductController(services.productService),
     userController: new UserController(services.userService),
