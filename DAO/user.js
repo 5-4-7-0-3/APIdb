@@ -7,7 +7,7 @@ class UserDAO {
             name,
             login,
             password: hashPassword,
-            role: 'admin'
+            role: ['admin', 'user']
         })
 
     }

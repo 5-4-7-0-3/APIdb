@@ -86,7 +86,9 @@ class UserController {
             if (!err.isEmpty()) {
                 res.status(400).json(err);
             }
+            console.log(req.body)
             const {name, login, password} = req.body
+
             const candidate = await this.userService.loginVerification(login)
             if (candidate[0]) {
 

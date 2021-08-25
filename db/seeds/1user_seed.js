@@ -11,19 +11,19 @@ exports.seed = async function (knex) {
                 name: 'user1',
                 login: 'user_1',
                 password: 'user1',
-                role: 'admin'
+                role: ['admin']
             },
                 {
                     name: 'user2',
                     login: 'user_2',
                     password: 'user2',
-                    role: 'user'
+                    role: ['user']
                 },
                 {
                     name: 'user3',
                     login: 'user_3',
                     password: 'user3',
-                    role: 'user'
+                    role: ['user', 'admin']
                 }]);
         });
 

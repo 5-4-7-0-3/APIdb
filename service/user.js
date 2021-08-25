@@ -27,10 +27,6 @@ class UserService {
     loginVerification(login) {
         return this.userDAO.loginVerification(login);
     }
-
-    authUser(login, password) {
-        return this.userDAO.authUser(login, password);
-    }
 }
 
 module.exports = UserService

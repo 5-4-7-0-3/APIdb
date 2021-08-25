@@ -1,5 +1,14 @@
 const setupDb = require('./db/db-setup');
-const express = require('express');
+const PORT = process.env.PORT || 3000;
+express = require('express');
+const app = require('express')();
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
+
+
+const swaggerUI = require('swagger-ui-express');
+const swagger = require('./swagger.json');
+
 const routerUser = require('./routes/user.js');
 const routerOrders = require('./routes/orders.js');
 const routerProduct = require('./routes/product.js');
@@ -10,11 +19,34 @@ const routerSales = require('./routes/sales.js');
 // set up database with objection and knex
 setupDb();
 
-const app = express();
+
 app.use(express.json());
 app.use('/user', routerUser);
 app.use('/orders', routerOrders);
 app.use('/product', routerProduct);
 app.use('/category', routerProductCategory);
 app.use('/sales', routerSales);
-app.listen(3000, () => console.log('server is running on port 3000'));
+
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger));
+
+connections = [];
+
+io.sockets.on('connection', (socket) => {
+    console.log("A user connected");
+    connections.push(socket);
+
+    io.on("connection", (socket) => {
+        socket.emit("hello", "world");
+    });
+
+    socket.on('disconnect', () => {
+        connections.splice(connections.indexOf(socket), 1);
+        console.log("A user disconnected");
+    });
+});
+server.listen(PORT, () => console.log(`server is running on port ${PORT}`));
+
+
+
+
+
