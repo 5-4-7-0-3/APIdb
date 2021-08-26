@@ -5,7 +5,6 @@ class Notification {
         this.connections = []
 
     }
-    
 
     addClient(socket) {
         this.connections.push(socket);
@@ -17,7 +16,7 @@ class Notification {
     }
 
     sendAll() {
-
+        
     }
 
 }
