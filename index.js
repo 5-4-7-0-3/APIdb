@@ -14,7 +14,7 @@ const routerOrders = require('./routes/orders.js');
 const routerProduct = require('./routes/product.js');
 const routerProductCategory = require('./routes/product_category.js');
 const routerSales = require('./routes/sales.js');
-
+const notificationService = require('./service')
 
 
 setupDb();
@@ -33,14 +33,14 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger));
 
 io.sockets.on('connection', (socket) => {
     console.log("A user connected");
-
+    notificationService.notificationService.addClient(socket)
 
     
-    // socket.emit("notification", 'Product changed');
+
     
 
     socket.on('disconnect', () => {
-
+        notificationService.notificationService.removeClient(socket)
         console.log("A user disconnected");
     });
 });

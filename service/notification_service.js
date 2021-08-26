@@ -1,21 +1,22 @@
-
 class Notification {
     constructor() {
-        this.socket
         this.connections = []
 
     }
 
     addClient(socket) {
         this.connections.push(socket);
-        console.log(this.connections);
     }
 
     removeClient(socket){
-        this.connections.splice(connections.indexOf(socket), 1);
+        this.connections.splice(this.connections.indexOf(socket), 1);
     }
 
-    sendAll() {
+    sendAll(id, description) {
+        this.connections.forEach(socket => {
+            socket.emit("notification", 'Product changed', id, description);
+        });
+        
         
     }
 

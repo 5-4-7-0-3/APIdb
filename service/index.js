@@ -6,14 +6,15 @@ const UserService = require('./user.js')
 const OrdersService = require('./orders.js')
 const Notification = require('./notification_service.js')
 
+notificationService = new Notification()
 
 
 
 module.exports = {
-    productService: new ProductService(DAO.productDAO),
+    productService: new ProductService(DAO.productDAO, notificationService),
     productCategoryService: new ProductCategoryService(DAO.productCategoryDAO),
     userService: new UserService(DAO.userDAO),
     salesService: new SalesService(DAO.salesDAO),
     ordersService: new OrdersService(DAO.ordersDAO),
-    notificationService: new Notification()
+    notificationService
 }

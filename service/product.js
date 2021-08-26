@@ -1,10 +1,12 @@
 
 
 class ProductService {
-    constructor(productDAO) {
+    constructor(productDAO, notificationService) {
         this.productDAO = productDAO
+        this.notificationService = notificationService
     }
     createProduct(description, price, amount_left,category_id) {
+        this.notificationService.sendAll(description)
         return this.productDAO.createProduct(description, price, amount_left,category_id);
     }
 
@@ -17,9 +19,11 @@ class ProductService {
     }
 
     updateProduct(id, description, price, amount_left, category_id) {
+        this.notificationService.sendAll(id)
         return this.productDAO.updateProduct(id, description, price, amount_left, category_id);
     }
     deleteProduct(id) {
+        this.notificationService.sendAll(id)
         return this.productDAO.deleteProduct(id);
     }
 
