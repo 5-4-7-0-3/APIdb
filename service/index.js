@@ -4,6 +4,8 @@ const ProductCategoryService = require('./product_category.js')
 const SalesService = require('./sales.js')
 const UserService = require('./user.js')
 const OrdersService = require('./orders.js')
+const Notification = require('./notification_service.js')
+
 
 
 
@@ -12,5 +14,6 @@ module.exports = {
     productCategoryService: new ProductCategoryService(DAO.productCategoryDAO),
     userService: new UserService(DAO.userDAO),
     salesService: new SalesService(DAO.salesDAO),
-    ordersService: new OrdersService(DAO.ordersDAO)
+    ordersService: new OrdersService(DAO.ordersDAO),
+    notificationService: new Notification()
 }

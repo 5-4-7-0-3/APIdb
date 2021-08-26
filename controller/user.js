@@ -19,7 +19,6 @@ class UserController {
             console.log(req.body)
             const hashPassword = bcrypt.hashSync(password, 7);
             const newUser = await this.userService.createUser(name, login, hashPassword)
-            console.log(newUser)
             res.json(newUser)
 
         } catch (err) {

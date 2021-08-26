@@ -1,11 +1,12 @@
 const Product = require("../db/models/product.js");
 
 class ProductDAO {
-    createProduct(description, price, amount_left) {
+    createProduct(description, price, amount_left,category_id) {
         return Product.query().insert({
             description,
             price,
-            amount_left
+            amount_left,
+            category_id
         })
     }
 
