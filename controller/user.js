@@ -54,13 +54,12 @@ class UserController {
             if (!err.isEmpty()) {
                 res.status(400).json(err);
             }
-            const {name, login, password, role} = req.body
+            const {name, login, password} = req.body
             const hashPassword = bcrypt.hashSync(password, 7);
             const updateUser = await this.userService.updateUser(req.params.id, {
                 name,
                 login,
                 password: hashPassword,
-                role
             })
             res.json(updateUser)
         } catch (err) {
@@ -89,7 +88,7 @@ class UserController {
             const {name, login, password} = req.body
 
             const candidate = await this.userService.loginVerification(login)
-            if (candidate[0]) {
+            if (candidate) {
 
                 return res.status(400).json({message: "User exists"})
             } else {
