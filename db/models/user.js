@@ -1,24 +1,24 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
+const userSchema = new Schema({
+    name: {
+        type: String,
+        required: true
+    },
 
-const {Model} = require('objection');
-const Orders = require('./orders.js')
-
-
-class User extends Model {
-    static get tableName() {
-        return 'user';
+    login: {
+        type: String,
+        required: true
+    },
+    
+    password: {
+        type: String,
+        required: true
     }
+    
 
-    static relationMappings = {
-        order: {
-            relation: Model.HasManyRelation,
-            modelClass: Orders,
-            join: {
-                from: 'user.id',
-                to: 'orders.user_id'
-            }
-        }
-    };
-}
+})
 
-module.exports = User;
+
+module.exports = mongoose.model('users', userSchema);

@@ -2,33 +2,33 @@ const ProductCategory = require("../db/models/product_category.js");
 
 class ProductCategoryDAO {
     createCategory(name) {
-        return ProductCategory.query().insert({
+        
+        return new ProductCategory({
             name
-        })
+        }).save()
     }
 
     getCategories() {
-        return ProductCategory.query();
+        return ProductCategory.find();
     }
 
     getOneCategory(id) {
-        return ProductCategory.query().findById(id);
+        return ProductCategory.findById(id);
     }
 
     updateCategory(id, name) {
-        return ProductCategory.query()
-            .findById(id)
-            .patch({
-                name
-            });
+
+        return ProductCategory.findOneAndUpdate(
+            {_id: id}, 
+            {
+                $set: {name}
+            },
+            {new: true}
+            );
     }
+
     deleteCategory(id) {
-        return ProductCategory.query()
-            .findById(id)
-            .for([id])
-            .delete()
-
-
+        return ProductCategory.deleteOne({id})
     }
 }
 

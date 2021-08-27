@@ -2,35 +2,33 @@ const Sales = require("../db/models/sales.js");
 
 class SalesDAO {
     createSales(product_id, order_id, quantity) {
-        return Sales.query().insert({
+        return new Sales({
             product_id,
             order_id,
             quantity
-        })
+        }).save()
     }
 
     getSales() {
-        return Sales.query();
+        return Sales.find();
     }
 
     getOneSale(id) {
-        return Sales.query().findById(id);
+        return Sales.findById(id);
     }
 
     updateSale(id, product_id, order_id, quantity) {
-        return Sales.query()
-            .findById(id)
-            .patch({
-                product_id,
-                order_id,
-                quantity: quantity
-            });
+        console.log(product_id, order_id, quantity);
+        return Sales.findOneAndUpdate(
+            {_id: id}, 
+            {
+                $set: { quantity}
+            },
+            {new: true}
+            );
     }
     deleteSale(id) {
-        return Sales.query()
-            .findById(id)
-            .for([id])
-            .delete()
+        return Sales.deleteOne({id})
 
 
     }

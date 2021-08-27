@@ -1,30 +1,23 @@
-const {Model} = require('objection');
-const Product = require('./product.js')
-const Orders = require('./orders.js')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-class Sales extends Model {
-    static get tableName() {
-        return 'sales';
-        }
-    static relationMappings = {
-        product: {
-            relation: Model.HasOneRelation,
-            modelClass: Product,
-            join: {
-                from: 'sales.product_id',
-                to: 'product_category.id'
-            }
-        },
-        order: {
-            relation: Model.HasOneRelation,
-            modelClass: Orders,
-            join: {
-                from: 'sales.order_id',
-                to: 'orders.id'
-            }
-        }
-    };
-}
+const salesSchema = new Schema({
+    product_id: {
+        ref: 'products',
+        type: Schema.Types.ObjectId
+    },
+
+    order_id: {
+        ref: 'orders',
+        type: Schema.Types.ObjectId
+    },
+    
+    quantity: {
+        type: Number,
+        required: true
+    }
 
 
-module.exports = Sales;
+})
+
+module.exports = mongoose.model('sales', salesSchema);

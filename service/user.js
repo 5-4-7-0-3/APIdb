@@ -16,8 +16,8 @@ class UserService {
         return this.userDAO.getOneUser(id);
     }
 
-    updateUser(id, name, login, password, role) {
-        return this.userDAO.updateUser(id, name, login, password, role);
+    updateUser(id, name) {
+        return this.userDAO.updateUser(id, name);
     }
 
     deleteUser(id) {

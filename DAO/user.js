@@ -3,44 +3,40 @@ const User = require("../db/models/user.js");
 class UserDAO {
 
     createUser(name, login, hashPassword) {
-        return User.query().insert({
-            name,
-            login,
-            password: hashPassword,
-            role: ['admin', 'user']
-        })
-
+        return new User({
+                    name,
+                    login,
+                    password: hashPassword
+              }).save()
+            
     }
 
     getUsers() {
-        return User.query();
+        return User.find();
     }
 
     getOneUser(id) {
-        return User.query().findById(id);
+        return User.findById(id);
     }
 
-    updateUser(id, name, login, password, role) {
-        return User.query()
-            .findById(id)
-            .patch({
-                name,
-                login,
-                password,
-                role
-            });
+    updateUser(id, name) {
+        return User.findOneAndUpdate(
+            {_id: id}, 
+            {
+                $set: name
+            },
+            {new: true}
+            );
     }
 
     deleteUser(id) {
-        return User.relatedQuery('orders')
-            .for([id])
-            .delete()
+        return User.deleteOne({id})
 
 
     }
 
     loginVerification(login) {
-        return User.query().where('login', login)
+        return User.findOne({login: login})
 
 
     }

@@ -1,38 +1,33 @@
 const Product = require("../db/models/product.js");
-
 class ProductDAO {
     createProduct(description, price, amount_left,category_id) {
-        return Product.query().insert({
+        return new Product({
             description,
             price,
             amount_left,
             category_id
-        })
+        }).save()
     }
 
     getProduct() {
-        return Product.query();
+        return Product.find();
     }
 
     getOneProduct(id) {
-        return Product.query().findById(id);
+        return Product.findById(id);
     }
 
     updateProduct(id, description, price, amount_left, category_id) {
-        return Product.query()
-            .findById(id)
-            .patch({
-                description,
-                price,
-                amount_left,
-                category_id
-            });
+        return Product.findOneAndUpdate(
+            {_id: id}, 
+            {
+                $set: {description, price, amount_left, category_id}
+            },
+            {new: true}
+            );
     }
     deleteProduct(id) {
-        return Product.query()
-            .findById(id)
-            .for([id])
-            .delete()
+        return Product.deleteOne({id})
 
 
     }

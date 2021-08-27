@@ -18,7 +18,7 @@ router.get('/', authMiddleware, controllers.userController.getUsers.bind(control
 
 router.get('/:id', authMiddleware, controllers.userController.getOneUser.bind(controllers.userController));
 
-router.put('/:id', authMiddleware, controllers.userController.updateUser.bind(controllers.userController));
+router.put('/:id',  controllers.userController.updateUser.bind(controllers.userController));
 
 router.delete('/:id', authMiddleware, controllers.userController.deleteUser.bind(controllers.userController));
 

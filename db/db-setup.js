@@ -1,10 +1,10 @@
-const {Model} = require('objection');
-const knex = require('knex');
-const knexfile = require('./knexfile.js');
-
+const mongoose = require('mongoose');
 function setupDb() {
-    const db = knex(knexfile.development);
-    Model.knex(db);
+    main().catch(err => console.log(err));
+    
+    async function main() {
+      await mongoose.connect('mongodb+srv://Freak:5t4r3e2w1q@api.hngeh.mongodb.net/myFirstDatabase?retryWrites=true&w=majority');
+    }
 }
 
 module.exports = setupDb;
