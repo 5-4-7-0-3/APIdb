@@ -5,7 +5,7 @@ const SalesService = require('./sales.js')
 const UserService = require('./user.js')
 const OrdersService = require('./orders.js')
 const Notification = require('./notification_service.js')
-
+const TokenService = require('./token.js')
 notificationService = new Notification()
 
 
@@ -16,5 +16,6 @@ module.exports = {
     userService: new UserService(DAO.userDAO),
     salesService: new SalesService(DAO.salesDAO),
     ordersService: new OrdersService(DAO.ordersDAO),
-    notificationService
+    notificationService,
+    tokenService: new TokenService()
 }

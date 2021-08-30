@@ -1,12 +1,12 @@
 const bcrypt = require('bcryptjs')
 const {validationResult} = require('express-validator')
-const jwt = require('jsonwebtoken')
-const {secret} = require('../JWT/config.js')
+
 
 class UserController {
-    constructor(userService) {
-        this.userService = userService
-
+    constructor(userService, tokenService, tokenDAO) {
+        this.userService = userService,
+        this.tokenService = tokenService,
+        this.tokenDAO = tokenDAO
     }
 
     async createUser(req, res) {
@@ -113,27 +113,21 @@ class UserController {
                 return res.status(400).json({message: `User with this ${login} was not found`})
             }
 
-            const validationPassword = bcrypt.compareSync(password, user[0].password)
+            const validationPassword = bcrypt.compareSync(password, user.password)
 
             if (!validationPassword) {
                 return res.status(400).json({message: `Wrong password`})
             }
-            const token = generateAccessToken(user.id, user.roles)
-            return res.json({token})
+            const accessToken = this.tokenService.generateAccessToken(user.id)
+            const refreshToken = this.tokenService.generateRefreshToken()
+            this.tokenDAO.createRefreshToken(user.id, refreshToken)
+            return res.json({accessToken})
 
         } catch (err) {
             console.error(err);
             res.status(500).json(err);
         }
     }
-}
-
-generateAccessToken = (id, roles) => {
-    const payload = {
-        id,
-        roles
-    }
-    return jwt.sign(payload, secret, {expiresIn: "10h"})
 }
 
 module.exports = UserController

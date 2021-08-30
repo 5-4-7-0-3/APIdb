@@ -31,7 +31,7 @@ router.post('/registration',
     ],
     controllers.userController.registrationUser.bind(controllers.userController));
 
-router.post('/notification', controllers.userController.authUser.bind(controllers.userController))
+router.post('/auth', controllers.userController.authUser.bind(controllers.userController))
 
 
 module.exports = router;
