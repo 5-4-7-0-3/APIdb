@@ -35,10 +35,6 @@ io.sockets.on('connection', (socket) => {
     console.log("A user connected");
     notificationService.notificationService.addClient(socket)
 
-    
-
-    
-
     socket.on('disconnect', () => {
         notificationService.notificationService.removeClient(socket)
         console.log("A user disconnected");

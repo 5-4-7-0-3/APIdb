@@ -1,7 +1,8 @@
 const express = require('express');
 const controllers = require('../controller');
 const {check} = require('express-validator')
-const authMiddleware = require('../middleware/authMiddleware')
+const authMiddleware = require('../middleware/authMiddleware');
+const controller = require('../controller');
 
 
 const router = express.Router();
@@ -32,6 +33,8 @@ router.post('/registration',
     controllers.userController.registrationUser.bind(controllers.userController));
 
 router.post('/auth', controllers.userController.authUser.bind(controllers.userController))
+
+router.post('/auth/refresh', controller.userController.refreshToken.bind(controllers.userController))
 
 
 module.exports = router;

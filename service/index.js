@@ -17,5 +17,5 @@ module.exports = {
     salesService: new SalesService(DAO.salesDAO),
     ordersService: new OrdersService(DAO.ordersDAO),
     notificationService,
-    tokenService: new TokenService()
+    tokenService: new TokenService(DAO.tokenDAO)
 }

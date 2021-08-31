@@ -10,12 +10,10 @@ class TokenDAO {
         }).save()
 
     }
-    generateRefreshToken(user_id) {
-        Token.findOneAndRemove({user_id})
-        .exect()
-        .then(() => createRefreshToken(user_id, refreshToken))
+    async updateRefreshToken(user_id, refreshToken) {
+        const result = await Token.deleteMany({ user_id, refreshToken }).exec();
+        return result.deletedCount
     }
-
 }
 
 module.exports = new TokenDAO()

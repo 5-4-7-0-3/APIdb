@@ -1,12 +1,12 @@
 const bcrypt = require('bcryptjs')
-const {validationResult} = require('express-validator')
+const {validationResult, Result} = require('express-validator');
+const DAO = require('../DAO');
 
 
 class UserController {
     constructor(userService, tokenService, tokenDAO) {
         this.userService = userService,
-        this.tokenService = tokenService,
-        this.tokenDAO = tokenDAO
+        this.tokenService = tokenService
     }
 
     async createUser(req, res) {
@@ -120,8 +120,26 @@ class UserController {
             }
             const accessToken = this.tokenService.generateAccessToken(user.id)
             const refreshToken = this.tokenService.generateRefreshToken()
-            this.tokenDAO.createRefreshToken(user.id, refreshToken)
-            return res.json({accessToken})
+            this.tokenService.saveRefreshToken(user.id, refreshToken)
+            return res.json({accessToken, refreshToken})
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    }
+    async refreshToken(req, res) {
+        try {
+            const {user_id, refreshToken} = req.body
+            const validationToken = await this.tokenService.updateRefreshToken(user_id, refreshToken)
+            console.log(validationToken);
+            if(validationToken <= 0) {
+                return res.status(400).json({message: `invalid token`})
+            }
+            const newAccessToken = this.tokenService.generateAccessToken(user.id)
+            const newRefreshToken = this.tokenService.generateRefreshToken()
+            this.tokenService.saveRefreshToken(user.id, newRefreshToken)
+            return res.json({newAccessToken, newRefreshToken})      //TODU
 
         } catch (err) {
             console.error(err);
