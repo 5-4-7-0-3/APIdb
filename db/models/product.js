@@ -11,12 +11,12 @@ const productSchema = new Schema({
         type: Number,
         required: true
     },
-    
+
     amount_left: {
         type: Number,
         required: true
     },
-    
+
     category_id: {
         ref: 'category',
         type: Schema.Types.ObjectId

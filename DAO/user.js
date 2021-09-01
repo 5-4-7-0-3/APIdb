@@ -8,7 +8,7 @@ class UserDAO {
                     login,
                     password: hashPassword
               }).save()
-            
+
     }
 
     getUsers() {
@@ -21,7 +21,7 @@ class UserDAO {
 
     updateUser(id, name) {
         return User.findOneAndUpdate(
-            {_id: id}, 
+            {_id: id},
             {
                 $set: name
             },

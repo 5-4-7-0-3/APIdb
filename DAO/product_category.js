@@ -2,7 +2,7 @@ const ProductCategory = require("../db/models/product_category.js");
 
 class ProductCategoryDAO {
     createCategory(name) {
-        
+
         return new ProductCategory({
             name
         }).save()
@@ -19,7 +19,7 @@ class ProductCategoryDAO {
     updateCategory(id, name) {
 
         return ProductCategory.findOneAndUpdate(
-            {_id: id}, 
+            {_id: id},
             {
                 $set: {name}
             },

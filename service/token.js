@@ -26,12 +26,7 @@ class TokenService {
   checkToken(refreshToken) {
     const currentDate = Math.floor(Date.now() / 1000)
     const decodedRefresh = jwt.decode(refreshToken);
-    if (decodedRefresh.exp > currentDate) {
-      return true
-    } else {
-      return false
-    }
-
+    return decodedRefresh.exp > currentDate
   }
 }
 module.exports = TokenService

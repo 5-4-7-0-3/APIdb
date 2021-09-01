@@ -10,16 +10,18 @@ class ProductDAO {
     }
 
     getProduct() {
-        return Product.find();
+        return Product.find()
+        .populate({ path: 'category_id', select: 'name' })
     }
 
     getOneProduct(id) {
-        return Product.findById(id);
+        return Product.findById(id)
+        .populate({ path: 'category_id', select: 'name' })
     }
 
     updateProduct(id, description, price, amount_left, category_id) {
         return Product.findOneAndUpdate(
-            {_id: id}, 
+            {_id: id},
             {
                 $set: {description, price, amount_left, category_id}
             },

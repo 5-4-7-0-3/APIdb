@@ -10,16 +10,18 @@ class OrdersDAO {
     }
 
     getOrders() {
-        return Orders.find();
+        return Orders.find()
+        .populate({ path: 'user_id', select: 'name' })
     }
 
     getOneOrder(id) {
-        return Orders.findById(id);
+        return Orders.findById(id)
+        .populate({ path: 'user_id', select: 'name' })
     }
 
     updateOrder(id, orders_date, user_id) {
         return Orders.findOneAndUpdate(
-            {_id: id}, 
+            {_id: id},
             {
                 $set: {orders_date, user_id}
             },

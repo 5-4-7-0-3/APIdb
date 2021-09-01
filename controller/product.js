@@ -8,7 +8,7 @@ class ProductController {
         try {
             const {description, price, amount_left, category_id} = req.body
             const newProduct = await this.productService.createProduct(description, price, amount_left, category_id)
-           
+
             res.json(newProduct)
             console.log(newProduct);
 
@@ -42,7 +42,7 @@ class ProductController {
             const updateProduct = await this.productService.updateProduct(req.params.id, description, price, amount_left, category_id)
             console.log(req.body);
             res.json(updateProduct)
-            
+
         }catch (err) {
             console.error(err);
             res.status(500).json(err);

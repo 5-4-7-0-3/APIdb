@@ -9,29 +9,32 @@ class SalesDAO {
     }).save()
   }
 
-    getSales() {
-        return Sales.find();
-    }
+  getSales() {
+    return Sales.find()
+      .populate({ path: 'product_id', select: 'description' })
+      .populate({ path: 'order_id', select: 'orders_date' })
+  }
 
-    getOneSale(id) {
-        return Sales.findById(id);
-    }
+  getOneSale(id) {
+    return Sales.findById(id)
+      .populate({ path: 'product_id', select: 'description' })
+      .populate({ path: 'order_id', select: 'orders_date' })
+  }
 
-    updateSale(id, product_id, order_id, quantity) {
-        console.log(product_id, order_id, quantity);
-        return Sales.findOneAndUpdate(
-            {_id: id},
-            {
-                $set: { quantity}
-            },
+  updateSale(id, quantity) {
+    return Sales.findOneAndUpdate(
+      { _id: id },
+      {
+        $set: { quantity }
+      },
       { new: true }
     );
   }
   deleteSale(id) {
-        return Sales.deleteOne({id})
+    return Sales.deleteOne({ id })
 
 
-    }
+  }
 }
 
 module.exports = new SalesDAO()
