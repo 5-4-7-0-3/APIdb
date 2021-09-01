@@ -132,14 +132,20 @@ class UserController {
         try {
             const {user_id, refreshToken} = req.body
             const validationToken = await this.tokenService.updateRefreshToken(user_id, refreshToken)
-            console.log(validationToken);
             if(validationToken <= 0) {
                 return res.status(400).json({message: `invalid token`})
             }
-            const newAccessToken = this.tokenService.generateAccessToken(user.id)
+            const checkToken = this.tokenService.checkToken(refreshToken)
+            if(checkToken) {
+            this.tokenService.updateRefreshToken(user_id, refreshToken)
+            const newAccessToken = this.tokenService.generateAccessToken(user_id)
             const newRefreshToken = this.tokenService.generateRefreshToken()
-            this.tokenService.saveRefreshToken(user.id, newRefreshToken)
-            return res.json({newAccessToken, newRefreshToken})      //TODU
+            this.tokenService.saveRefreshToken(user_id, newRefreshToken)
+            return res.json({newAccessToken, newRefreshToken})
+            } else if (!checkToken) {
+              this.tokenService.updateRefreshToken(user_id, refreshToken)
+              return res.status(400).json({message: `invalid token`})
+            }
 
         } catch (err) {
             console.error(err);
