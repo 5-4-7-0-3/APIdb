@@ -1,8 +1,9 @@
 const express = require('express');
 const controllers = require('../controller');
-const {check} = require('express-validator')
+const {check, param} = require('express-validator')
 const authMiddleware = require('../middleware/authMiddleware');
 const controller = require('../controller');
+
 
 
 const router = express.Router();
@@ -17,7 +18,9 @@ router.post('/',
 
 router.get('/', authMiddleware, controllers.userController.getUsers.bind(controllers.userController));
 
-router.get('/:id', authMiddleware, controllers.userController.getOneUser.bind(controllers.userController));
+router.get('/:id',
+  param('id').notEmpty().isLength({min:24}),                                  //TODO debug
+  authMiddleware, controllers.userController.getOneUser.bind(controllers.userController));
 
 router.put('/:id',  controllers.userController.updateUser.bind(controllers.userController));
 

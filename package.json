@@ -20,6 +20,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/express": "^4.17.13",
     "nodemon": "^2.0.12"
   },
   "scripts": {
@@ -28,7 +29,7 @@
     "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.js",
     "migrate-make": "npx knex migrate:make init --knexfile ./db/knexfile.js",
     "migrate-down": "npx knex migrate:down --knexfile ./db/knexfile.js",
-    "serve": "nodemon index.js",
+    "serve": "nodemon index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

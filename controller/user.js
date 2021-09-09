@@ -4,13 +4,12 @@ const DAO = require('../DAO');
 
 
 class UserController {
-  constructor(userService, tokenService, tokenDAO) {
+  constructor(userService, tokenService) {
     this.userService = userService,
       this.tokenService = tokenService
   }
 
   async createUser(req, res) {
-    try {
       const err = validationResult(req)
       if (!err.isEmpty()) {
         res.status(400).json(err);
@@ -20,36 +19,19 @@ class UserController {
       const hashPassword = bcrypt.hashSync(password, 7);
       const newUser = await this.userService.createUser(name, login, hashPassword)
       res.json(newUser)
-
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
-
   }
 
   async getUsers(req, res) {
-    try {
       const user = await this.userService.getUsers();
       res.json(user);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
   }
 
   async getOneUser(req, res) {
-    try {
       const oneUser = await this.userService.getOneUser(req.params.id);
       res.json(oneUser);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
   }
 
   async updateUser(req, res) {
-    try {
       const err = validationResult(req)
       if (!err.isEmpty()) {
         res.status(400).json(err);
@@ -62,24 +44,14 @@ class UserController {
         password: hashPassword,
       })
       res.json(updateUser)
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
   }
 
   async deleteUser(req, res) {
-    try {
       const deleteUser = await this.userService.deleteUser(req.params.id)
       res.json(deleteUser)
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
   }
 
   async registrationUser(req, res) {
-    try {
       const err = validationResult(req)
       if (!err.isEmpty()) {
         res.status(400).json(err);
@@ -96,17 +68,9 @@ class UserController {
         await this.userService.createUser(name, login, hashPassword)
         return res.json({ message: "registration successful" })
       }
-
-
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
-
   }
 
   async authUser(req, res) {
-    try {
       const { login, password } = req.body
       const user = await this.userService.loginVerification(login)
       if (!user) {
@@ -123,13 +87,8 @@ class UserController {
       this.tokenService.saveRefreshToken(user.id, refreshToken)
       return res.json({ accessToken, refreshToken })
 
-    } catch (err) {
-      console.error(err);
-      res.status(500).json(err);
-    }
   }
   async refreshToken(req, res) {
-    try {
       const { user_id, refreshToken } = req.body
       const validationToken = await this.tokenService.updateRefreshToken(user_id, refreshToken)
       const checkToken = this.tokenService.checkToken(refreshToken)
@@ -141,11 +100,6 @@ class UserController {
       await this.tokenService.saveRefreshToken(user_id, newRefreshToken)
       return res.json({ newAccessToken, newRefreshToken })
     }
-         catch(err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-  }
 }
 
 module.exports = UserController
