@@ -4,7 +4,7 @@
     "title": "test API",
     "version": "v1"
   },
-  "host": "localhost:8000",
+  "host": "localhost:3000",
   "basePath": "/",
   "tags": [
     {
@@ -40,74 +40,74 @@
       }
     }
   },
- "components": {
-   "schemas": {
-     "User": {
-       "type": "object",
-       "properties": {
-         "name": {
-           "type": "string"
-         },
-         "login": {
-           "type": "string"
-         },
-         "password": {
-           "type": "string"
-         }
-       }
-     },
-     "Product_category": {
-       "type": "object",
-       "properties": {
-         "category": {
-           "type": "string"
-         }
-       }
-     },
-     "Product": {
-       "type": "object",
-       "properties": {
-         "description": {
-           "type": "string"
-         },
-         "price": {
-           "type": "integer"
-         },
-         "amount_left": {
-           "type": "integer"
-         },
-         "category_id": {
-           "type": "integer"
-         }
-       }
-     },
-     "Orders": {
-       "type": "object",
-       "properties": {
-         "orders_date": {
-           "type": "integer"
-         },
-         "user_id": {
-           "type": "integer"
-         }
-       }
-     },
-     "Sales": {
-       "type": "object",
-       "properties": {
-         "product_id": {
-           "type": "integer"
-         },
-         "order_id": {
-           "type": "integer"
-         },
-         "quantity": {
-           "type": "integer"
-         }
-       }
-     }
-   }
- },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "login": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Product_category": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "amount_left": {
+            "type": "integer"
+          },
+          "category_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Orders": {
+        "type": "object",
+        "properties": {
+          "orders_date": {
+            "type": "integer"
+          },
+          "user_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "Sales": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "integer"
+          },
+          "order_id": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  },
   "schemes": [
     "http"
   ],
@@ -117,5 +117,4 @@
   "produces": [
     "application/json"
   ]
-
 }
