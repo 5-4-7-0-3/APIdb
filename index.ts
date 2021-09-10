@@ -1,20 +1,21 @@
-const setupDb = require('./db/db-setup');
+
+import {setupDb} from './db/db-setup';
 const PORT = process.env.PORT || 3000;
-const express = require('express');
+import express from 'express';
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 
-const swaggerUI = require('swagger-ui-express');
+import swaggerUI from 'swagger-ui-express';
 const swagger = require('./swagger.json');
 
-const routerUser = require('./routes/user.js');
-const routerOrders = require('./routes/orders.js');
-const routerProduct = require('./routes/product.js');
-const routerProductCategory = require('./routes/product_category.js');
-const routerSales = require('./routes/sales.js');
-const notificationService = require('./service')
+import routerUser from './routes/user';
+import routerOrders from './routes/orders';
+import routerProduct from './routes/product';
+import routerProductCategory from './routes/product_category';
+import routerSales from './routes/sales';
+import notificationService from './service';
 
 
 setupDb();
@@ -26,6 +27,8 @@ app.use('/orders', routerOrders);
 app.use('/product', routerProduct);
 app.use('/category', routerProductCategory);
 app.use('/sales', routerSales);
+
+app.use('/static', express.static('db'));
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger));
 app.use(errorHandler);
