@@ -20,6 +20,7 @@ describe('UserRoutes', () => {
       })
 
     expect(res.body).toStrictEqual({ message: "registration successful" })
+    // expect(res.body).toStrictEqual({ message: "registration successful" })
 
   });
 
