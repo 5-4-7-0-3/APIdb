@@ -19,11 +19,11 @@ class UserDAO {
         return User.findById(id);
     }
 
-    updateUser(id, name) {
+    updateUser(id, {name, login, password}) {
         return User.findOneAndUpdate(
             {_id: id},
             {
-                $set: name
+                $set: {name, login, password}
             },
             {new: true}
             );
