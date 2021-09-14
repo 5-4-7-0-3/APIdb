@@ -11,8 +11,8 @@ const router = express.Router();
 router.post('/',
     [
         check('name', "Empty value").notEmpty(),
-        check('login', "Login password must be more than 6 characters and less than 15").isLength({min: 6, max: 15}),
-        check('password', "Password must be more than 6 characters and less than 15").isLength({min: 6, max: 15})
+        check('login', "Login password must be more than 6 characters and less than 15").isLength({min: 6, max: 24}),
+        check('password', "Password must be more than 6 characters and less than 15").isLength({min: 6, max: 24})
     ],
     controllers.userController.createUser.bind(controllers.userController));
 

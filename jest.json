@@ -5,6 +5,7 @@
       "js",
       "json"
     ],
+
     "testPathIgnorePatterns": ["build", "node_modules"],
     "testRegex": "./.*\\.(test|spec).(ts|tsx|js)$",
     "preset": "ts-jest",

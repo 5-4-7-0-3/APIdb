@@ -1,5 +1,4 @@
-
-import {setupDb} from './db/db-setup';
+import { setupDb } from './db/db-setup';
 const PORT = process.env.PORT || 3000;
 import express from 'express';
 const app = require('express')();
@@ -35,22 +34,18 @@ app.use(errorHandler);
 
 
 io.sockets.on('connection', (socket) => {
-    console.log("A user connected");
-    notificationService.notificationService.addClient(socket)
+  console.log("A user connected");
+  notificationService.notificationService.addClient(socket);
 
-    socket.on('disconnect', () => {
-        notificationService.notificationService.removeClient(socket)
-        console.log("A user disconnected");
-    });
+  socket.on('disconnect', () => {
+    notificationService.notificationService.removeClient(socket);
+    console.log("A user disconnected");
+  });
 });
-
-
 
 server.listen(PORT, () => console.log(`server is running on port ${PORT}`));
 
-
-
-
+export = app;
 
 function errorHandler(err, req, res, next) {
   if (res.headersSent) {
@@ -59,4 +54,3 @@ function errorHandler(err, req, res, next) {
   res.status(500);
   res.render('error', { error: err });
 }
-
