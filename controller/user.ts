@@ -17,7 +17,6 @@ class UserController {
       res.status(400).json(err);
     }
     const { name, login, password } = req.body
-    console.log(req.body)
     const hashPassword = bcrypt.hashSync(password, 7);
     const newUser = await this.userService.createUser(name, login, hashPassword)
     res.json(newUser)
@@ -66,8 +65,8 @@ class UserController {
       return res.status(400).json({ message: "User exists" })
     } else {
       const hashPassword = bcrypt.hashSync(password, 7);
-      await this.userService.createUser(name, login, hashPassword)
-      return res.json({ message: "registration successful" })
+      const user = await this.userService.createUser(name, login, hashPassword)
+      return res.json(user)
     }
   }
 
@@ -93,6 +92,7 @@ class UserController {
     const { user_id, refreshToken } = req.body
     const validationToken = await this.tokenService.updateRefreshToken(user_id, refreshToken)
     const checkToken = this.tokenService.checkToken(refreshToken)
+
     if (validationToken <= 0 || !checkToken) {
       return res.status(400).json({ message: `invalid token` })
     }

@@ -15,7 +15,7 @@ class TokenService {
   generateRefreshToken() {
     const payload = {
     }
-    return jwt.sign(payload, config.secret, { expiresIn: "30" })
+    return jwt.sign(payload, config.secret, { expiresIn: "30m" })
   }
   saveRefreshToken(user_id, refreshToken) {
     return this.tokenDAO.createRefreshToken(user_id, refreshToken)
