@@ -14,7 +14,7 @@ describe('UserService', () => {
         { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) },
         { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) },
         { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) }
-      ]));
+      ]))
     },
 
     getOneUser: (id) => {
@@ -32,15 +32,20 @@ describe('UserService', () => {
         name: name || faker.name.firstName(),
         login: login || faker.internet.userName(),
         password: password || bcrypt.hashSync(faker.internet.password(), 7)
-      }
-      ));
+      }))
     },
 
     deleteUser: (id) => {
-      if (id != null) { return new Promise((res) => res({ n: "1", ok: "1", deleteCount: "1" })) };
+      if (id != null) {
+        return new Promise((res) => res({
+          deletedCount: 1
+        }))
+      }
     },
 
-    loginVerification: (login) => { return new Promise((res) => res({ login })) },
+    loginVerification: (login) => {
+      return new Promise((res) => res({ _id: faker.datatype.uuid(), name: faker.name.firstName(), login, password: bcrypt.hashSync(login) }))
+    },
   }
 
   afterEach(() => {
@@ -117,7 +122,7 @@ describe('UserService', () => {
     const id: string = faker.datatype.uuid();
     const res = await userService.deleteUser(id);
 
-    expect(res).toEqual({ n: "1", ok: "1", deleteCount: "1" });
+    expect(res).toEqual({ deletedCount: 1 });
   });
 
   it('loginVerification', async () => {
@@ -125,6 +130,10 @@ describe('UserService', () => {
     const login = faker.internet.userName()
     const res = await userService.loginVerification(login);
 
+    expect(res.id).not.toBeNull();
+    expect(res.name).not.toBeNull();
+    expect(res.login).not.toBeNull();
+    expect(res.password).not.toBeNull();
     expect(res.login).toBe(login);
   });
 });
