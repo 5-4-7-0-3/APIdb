@@ -3,50 +3,6 @@ import bcrypt from 'bcryptjs';
 import { UserService } from "../service/user";
 
 describe('UserService', () => {
-  const UserDaoObj = {
-    createUser: (name, login, hashPassword) => {
-      return new Promise((res) => res({ _id: faker.datatype.uuid(), name, login, password: hashPassword }));
-    },
-
-    getUsers: () => {
-      return new Promise((res) => res([
-        { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) },
-        { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) },
-        { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) },
-        { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) }
-      ]))
-    },
-
-    getOneUser: (id) => {
-      return new Promise((res) => res({
-        _id: id,
-        name: faker.name.firstName(),
-        login: faker.internet.userName(),
-        password: bcrypt.hashSync(faker.internet.password(), 7)
-      }));
-    },
-
-    updateUser: (id, { name, login, password }) => {
-      return new Promise((res) => res({
-        _id: id,
-        name: name || faker.name.firstName(),
-        login: login || faker.internet.userName(),
-        password: password || bcrypt.hashSync(faker.internet.password(), 7)
-      }))
-    },
-
-    deleteUser: (id) => {
-      if (id != null) {
-        return new Promise((res) => res({
-          deletedCount: 1
-        }))
-      }
-    },
-
-    loginVerification: (login) => {
-      return new Promise((res) => res({ _id: faker.datatype.uuid(), name: faker.name.firstName(), login, password: bcrypt.hashSync(login) }))
-    },
-  }
 
   afterEach(() => {
     jest.restoreAllMocks();
@@ -90,19 +46,12 @@ describe('UserService', () => {
     let login: string;
     let password: string;
 
-    if (Boolean(Math.round(Math.random()))) {
-      name = faker.name.firstName();
-    } else { name = null };
-
-    if (Boolean(Math.round(Math.random()))) {
-      login = faker.name.firstName();
-    } else { login = null };
-
-    if (Boolean(Math.round(Math.random()))) {
-      password = faker.name.firstName();
-    } else { password = null };
+    name = random() ? faker.name.firstName() : null
+    login = random() ? faker.name.firstName() : null
+    password = random() ? faker.name.firstName() : null
 
     const res = await userService.updateUser(id, { name, login, password });
+
 
     if (name != null) {
       expect(res.name).toBe(name);
@@ -113,7 +62,6 @@ describe('UserService', () => {
     if (password != null) {
       expect(res.password).toBe(password);
     }
-
     expect(res).not.toBeNull();
   });
 
@@ -137,3 +85,54 @@ describe('UserService', () => {
     expect(res.login).toBe(login);
   });
 });
+
+const UserDaoObj = {
+  createUser: (name, login, hashPassword) => {
+    return new Promise((res) => res({ _id: faker.datatype.uuid(), name, login, password: hashPassword }));
+  },
+
+  getUsers: () => {
+    return new Promise((res) => res([
+      createUser(),
+      createUser(),
+      createUser()
+    ]))
+  },
+
+  getOneUser: (id) => {
+    return new Promise((res) => res({
+      _id: id,
+      name: faker.name.firstName(),
+      login: faker.internet.userName(),
+      password: bcrypt.hashSync(faker.internet.password(), 7)
+    }));
+  },
+
+  updateUser: (id, { name, login, password }) => {
+    return new Promise((res) => res({
+      _id: id,
+      name: name || faker.name.firstName(),
+      login: login || faker.internet.userName(),
+      password: password || bcrypt.hashSync(faker.internet.password(), 7)
+    }))
+  },
+
+  deleteUser: (id) => {
+    if (id != null) {
+      return new Promise((res) => res({
+        deletedCount: 1
+      }))
+    }
+  },
+
+  loginVerification: (login) => {
+    return new Promise((res) => res({ _id: faker.datatype.uuid(), name: faker.name.firstName(), login, password: bcrypt.hashSync(login) }))
+  },
+}
+
+function random() {
+  return Boolean(Math.round(Math.random()))
+}
+function createUser() {
+  return { _id: faker.datatype.uuid(), name: faker.name.firstName(), login: faker.internet.userName(), password: bcrypt.hashSync(faker.internet.password(), 7) }
+}
