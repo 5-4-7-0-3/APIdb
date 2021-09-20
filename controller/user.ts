@@ -14,28 +14,28 @@ class UserController {
   async createUser(req, res) {
     const err = validationResult(req)
     if (!err.isEmpty()) {
-      res.status(400).json(err);
+      return res.status(400).json(err);
     }
     const { name, login, password } = req.body
     const hashPassword = bcrypt.hashSync(password, 7);
     const newUser = await this.userService.createUser(name, login, hashPassword)
-    res.json(newUser)
+    return res.json(newUser)
   }
 
   async getUsers(req, res) {
     const user = await this.userService.getUsers();
-    res.json(user);
+    return res.json(user);
   }
 
   async getOneUser(req, res) {
     const oneUser = await this.userService.getOneUser(req.params.id);
-    res.json(oneUser);
+    return res.json(oneUser);
   }
 
   async updateUser(req, res) {
     const err = validationResult(req)
     if (!err.isEmpty()) {
-      res.status(400).json(err);
+      return res.status(400).json(err);
     }
     const { name, login, password } = req.body
     const hashPassword = bcrypt.hashSync(password, 7);
@@ -44,24 +44,23 @@ class UserController {
       login,
       password: hashPassword,
     })
-    res.json(updateUser)
+    return res.json(updateUser)
   }
 
   async deleteUser(req, res) {
     const deleteUser = await this.userService.deleteUser(req.params.id)
-    res.json(deleteUser)
+    return res.json(deleteUser)
   }
 
   async registrationUser(req, res) {
     const err = validationResult(req)
     if (!err.isEmpty()) {
-      res.status(400).json(err);
+      return res.status(400).json(err);
     }
     const { name, login, password } = req.body
 
     const candidate = await this.userService.loginVerification(login)
     if (candidate) {
-
       return res.status(400).json({ message: "User exists" })
     } else {
       const hashPassword = bcrypt.hashSync(password, 7);
@@ -88,6 +87,7 @@ class UserController {
     return res.json({ accessToken, refreshToken })
 
   }
+
   async refreshToken(req, res) {
     const { user_id, refreshToken } = req.body
     const validationToken = await this.tokenService.updateRefreshToken(user_id, refreshToken)

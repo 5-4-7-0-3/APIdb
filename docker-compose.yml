@@ -1,4 +1,4 @@
-version: '3'
+version: "3.9"  # optional since v1.27.0
 services:
   mongo:
     image: mongo
@@ -6,3 +6,14 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/code
+    links:
+      - redis
+  redis:
+    image: redis
+

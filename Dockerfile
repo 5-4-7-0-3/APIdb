@@ -1,12 +1,13 @@
-FROM node
+FROM node:lts-alpine
 
 WORKDIR /api
 
 COPY . .
 
 RUN npm install
+# RUN npm run tsc:w
 
-EXPOSE 3000
+EXPOSE 27017
 
-CMD ["node", "index.ts"]
+CMD ["nodemon", "index.ts"]
 
