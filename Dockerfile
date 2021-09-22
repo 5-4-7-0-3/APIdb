@@ -1,13 +1,12 @@
-FROM node:lts-alpine
+FROM node:16-alpine
 
 WORKDIR /api
 
 COPY . .
 
 RUN npm install
-# RUN npm run tsc:w
+RUN npm run tsc
 
-EXPOSE 27017
+EXPOSE 8080/tcp
 
-CMD ["nodemon", "index.ts"]
-
+CMD ["node", "./build/index.js"]

@@ -35,6 +35,7 @@
     "typescript": "^4.4.3"
   },
   "scripts": {
+    "tsc": "tsc",
     "tsc:w": "tsc -w",
     "seed-run": "npx knex seed:run --knexfile ./db/knexfile.js",
     "rollback": "npx knex migrate:rollback --knexfile ./db/knexfile.js",

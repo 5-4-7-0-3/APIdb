@@ -1,13 +1,14 @@
 import { setupDb } from './db/db-setup';
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 import express from 'express';
+require('express-async-errors');
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 
-import swaggerUI from 'swagger-ui-express';
-const swagger = require('./swagger.json');
+// import swaggerUI from 'swagger-ui-express';
+// const swagger = require('./swagger.json');
 
 import routerUser from './routes/user';
 import routerOrders from './routes/orders';
@@ -29,11 +30,11 @@ app.use('/sales', routerSales);
 
 app.use('/static', express.static('db'));
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger));
+// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swagger));
 app.use(errorHandler);
 
 
-io.sockets.on('connection', (socket) => {
+io.sockets.on('connection', (socket: any) => {
   console.log("A user connected");
   notificationService.notificationService.addClient(socket);
 
