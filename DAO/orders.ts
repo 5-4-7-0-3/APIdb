@@ -1,40 +1,38 @@
 import { Orders } from "../db/models/orders";
 
-
 class OrdersDAO {
     createOrder(orders_date, user_id) {
         return new Orders({
             orders_date,
-            user_id
-        }).save()
+            user_id,
+        }).save();
     }
 
     getOrders() {
-        return Orders.find()
-        .populate({ path: 'user_id', select: 'name' })
+        return Orders.find().populate({ path: "user_id", select: "name" });
     }
 
     getOneOrder(id) {
-        return Orders.findById(id)
-        .populate({ path: 'user_id', select: 'name' })
+        return Orders.findById(id).populate({
+            path: "user_id",
+            select: "name",
+        });
     }
 
     updateOrder(id, orders_date, user_id) {
         return Orders.findOneAndUpdate(
-            {_id: id},
+            { _id: id },
             {
-                $set: {orders_date, user_id}
+                $set: { orders_date, user_id },
             },
-            {new: true}
-            );
+            { new: true }
+        );
     }
     deleteOrder(id) {
-        return Orders.deleteOne({ id })
-
-
+        return Orders.deleteOne({ id });
     }
 }
 
-const ordersDAO = new OrdersDAO()
+const ordersDAO = new OrdersDAO();
 
-export {ordersDAO}
+export { ordersDAO };

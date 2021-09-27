@@ -1,8 +1,7 @@
-
 class ProductCategoryService {
     productCategoryDAO: any;
     constructor(productCategoryDAO) {
-        this.productCategoryDAO = productCategoryDAO
+        this.productCategoryDAO = productCategoryDAO;
     }
     createCategory(name) {
         return this.productCategoryDAO.createCategory(name);
@@ -23,4 +22,4 @@ class ProductCategoryService {
         return this.productCategoryDAO.deleteCategory(id);
     }
 }
-export {ProductCategoryService}
+export { ProductCategoryService };

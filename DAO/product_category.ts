@@ -2,10 +2,9 @@ import { ProductCategory } from "../db/models/product_category";
 
 class ProductCategoryDAO {
     createCategory(name) {
-
         return new ProductCategory({
-            name
-        }).save()
+            name,
+        }).save();
     }
 
     getCategories() {
@@ -17,21 +16,20 @@ class ProductCategoryDAO {
     }
 
     updateCategory(id, name) {
-
         return ProductCategory.findOneAndUpdate(
-            {_id: id},
+            { _id: id },
             {
-                $set: {name}
+                $set: { name },
             },
-            {new: true}
-            );
+            { new: true }
+        );
     }
 
     deleteCategory(id) {
-        return ProductCategory.deleteOne({id})
+        return ProductCategory.deleteOne({ id });
     }
 }
 
-const productCategoryDAO = new ProductCategoryDAO()
+const productCategoryDAO = new ProductCategoryDAO();
 
-export {productCategoryDAO}
+export { productCategoryDAO };

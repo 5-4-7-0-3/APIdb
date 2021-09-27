@@ -1,11 +1,10 @@
-
 class SalesService {
     salesDAO: any;
     constructor(salesDAO) {
-        this.salesDAO = salesDAO
+        this.salesDAO = salesDAO;
     }
-    createSales( product_id, order_id, quantity) {
-        return this.salesDAO.createSales( product_id, order_id, quantity);
+    createSales(product_id, order_id, quantity) {
+        return this.salesDAO.createSales(product_id, order_id, quantity);
     }
 
     getSales() {
@@ -23,4 +22,4 @@ class SalesService {
         return this.salesDAO.deleteSale(id);
     }
 }
-export {SalesService}
+export { SalesService };

@@ -1,19 +1,18 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const ordersSchema = new Schema({
     orders_date: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
 
     user_id: {
-        ref: 'users',
-        type: Schema.Types.ObjectId
-    }
+        ref: "users",
+        type: Schema.Types.ObjectId,
+    },
+});
 
-})
+const Orders = mongoose.model("orders", ordersSchema);
 
-const Orders = mongoose.model('orders', ordersSchema);
-
-export {Orders}
+export { Orders };
