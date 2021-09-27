@@ -1,6 +1,6 @@
 class OrdersController {
-    ordersService: unknown;
-    constructor(ordersService) {
+    ordersService: any;
+    constructor(ordersService: any) {
         this.ordersService = ordersService;
     }
     async createOrder(req, res) {
