@@ -1,6 +1,25 @@
 version: "3.1"
 
 services:
+    web:
+        image: nginx
+        volumes:
+            - ./volumes/templates:/etc/nginx/templates
+        ports:
+            - "9090:80"
+        environment:
+            - NGINX_HOST=foobar.com
+            - NGINX_PORT=80
+    api:
+        build: .
+        env_file:
+            - .env
+        command: ["npx", "nodemon", "./index.ts"]
+        ports:
+            - "8080:8080"
+
+        volumes:
+            - .:/api
     mongo:
         image: mongo:4.4.9-focal
         restart: always
@@ -14,13 +33,3 @@ services:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: example
             MONGO_INITDB_DATABASE: API
-    api:
-        build: .
-        env_file:
-            - .env
-        command: ["npx", "nodemon", "./index.ts"]
-        ports:
-            - "8080:8080"
-
-        volumes:
-            - .:/api
