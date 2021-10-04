@@ -1,16 +1,8 @@
 version: "3.1"
 
 services:
-    web:
-        image: nginx
-        volumes:
-            - ./volumes/templates:/etc/nginx/templates
-        ports:
-            - "9090:80"
-        environment:
-            - NGINX_HOST=foobar.com
-            - NGINX_PORT=80
     api:
+        container_name: api
         build: .
         env_file:
             - .env
@@ -20,8 +12,28 @@ services:
 
         volumes:
             - .:/api
+        networks:
+            - app-network
+
+    web:
+        image: nginx
+        container_name: web
+        volumes:
+            - ./volumes/nginx/templates:/etc/nginx/templates
+            - ./volumes/nginx/nginx.conf:/etc/nginx/nginx.conf
+            - ./volumes/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - "9090:80"
+        environment:
+            - NGINX_HOST=foobar.com
+            - NGINX_PORT=80
+        networks:
+            - app-network
+        depends_on:
+            - api
     mongo:
         image: mongo:4.4.9-focal
+        container_name: mongo
         restart: always
         env_file:
             - .env
@@ -33,3 +45,6 @@ services:
             MONGO_INITDB_ROOT_USERNAME: root
             MONGO_INITDB_ROOT_PASSWORD: example
             MONGO_INITDB_DATABASE: API
+networks:
+    app-network:
+        driver: bridge
