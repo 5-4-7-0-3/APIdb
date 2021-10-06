@@ -24,6 +24,9 @@ app.use("/orders", routerOrders);
 app.use("/product", routerProduct);
 app.use("/category", routerProductCategory);
 app.use("/sales", routerSales);
+app.use("/", (req, res) => {
+    return res.json({ message: "HALO" });
+});
 
 app.use("/static", express.static("db"));
 
