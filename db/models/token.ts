@@ -1,16 +1,16 @@
-import mongoose from 'mongoose';
-const Schema = mongoose.Schema
+import mongoose from "mongoose";
+const Schema = mongoose.Schema;
 
 const tokenSchema = new Schema({
     user_id: {
         type: String,
-        required: true
+        required: true,
     },
     refreshToken: {
         type: String,
-        required: true
-    }
-})
+        required: true,
+    },
+});
 
-const Token = mongoose.model('token', tokenSchema);
-export {Token}
+const Token = mongoose.model("token", tokenSchema);
+export { Token };

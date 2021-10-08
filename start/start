@@ -1,0 +1,71 @@
+#!/bin/bash
+echo "=============================================================="
+echo "|| Write \"start\" to run the application.                    ||"
+echo "=============================================================="
+echo "|| Write a \"build\" to build the application and run it.     ||"
+echo "=============================================================="
+echo "|| Write a \"log\" to see the logs.                           ||"
+echo "=============================================================="
+echo "|| Write a \"test\" to test the application.                  ||"
+echo "=============================================================="
+read value
+
+
+if [ $value = "start" ]
+then
+docker-compose up >> "./start/log" &
+echo "================================================="
+echo "|| Write \"stop\" to stop the application.       ||"
+echo "================================================="
+
+read value
+
+if [ $value = "stop" ]
+then
+echo "================================================="
+echo "|| Application stopped.                          ||"
+echo "================================================="
+docker-compose down >> "./start/log" &
+
+fi
+fi
+
+if [ $value = "build" ]
+then
+npm install >> "./start/log" &
+npm run tsc:w >> "./start/log" &
+docker-compose up >> "./start/log" &
+
+echo "================================================="
+echo "|| Write \"stop\" to stop the application.       ||"
+echo "================================================="
+read value
+
+
+if [ $value = "stop" ]
+then
+echo "================================================="
+echo "|| Application stopped.                        ||"
+echo "================================================="
+docker-compose down >> "./start/log" &
+
+fi
+fi
+
+if [ $value = "log" ]
+then
+cat "./start/log"
+fi
+
+if [ $value = "test" ]
+then
+npm run test >> "./start/log" &
+echo "================================================="
+echo "|| Await test response.                        ||"
+echo "================================================="
+fi
+
+
+
+
+

@@ -1,12 +1,10 @@
-
-
 class OrdersService {
     ordersDAO: any;
     constructor(ordersDAO) {
-        this.ordersDAO = ordersDAO
+        this.ordersDAO = ordersDAO;
     }
-    createOrder( orders_date, user_id) {
-        return this.ordersDAO.createOrder( orders_date, user_id);
+    createOrder(orders_date, user_id) {
+        return this.ordersDAO.createOrder(orders_date, user_id);
     }
 
     getOrders() {
@@ -17,11 +15,11 @@ class OrdersService {
         return this.ordersDAO.getOneOrder(id);
     }
 
-    updateOrder(id,  orders_date, user_id) {
-        return this.ordersDAO.updateOrder(id,  orders_date, user_id);
+    updateOrder(id, orders_date, user_id) {
+        return this.ordersDAO.updateOrder(id, orders_date, user_id);
     }
     deleteOrder(id) {
         return this.ordersDAO.deleteOrder(id);
     }
 }
-export {OrdersService}
+export { OrdersService };

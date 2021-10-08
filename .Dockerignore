@@ -1,0 +1,7 @@
+.gitignore
+.env
+build
+node_modules
+volumes
+start/log
+.git

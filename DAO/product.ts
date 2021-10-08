@@ -1,40 +1,40 @@
 import { Product } from "../db/models/product";
 class ProductDAO {
-    createProduct(description, price, amount_left,category_id) {
+    createProduct(description, price, amount_left, category_id, image) {
         return new Product({
             description,
             price,
             amount_left,
-            category_id
-        }).save()
+            category_id,
+            image,
+        }).save();
     }
 
     getProduct() {
-        return Product.find()
-        .populate({ path: 'category_id', select: 'name' })
+        return Product.find().populate({ path: "category_id", select: "name" });
     }
 
     getOneProduct(id) {
-        return Product.findById(id)
-        .populate({ path: 'category_id', select: 'name' })
+        return Product.findById(id).populate({
+            path: "category_id",
+            select: "name",
+        });
     }
 
-    updateProduct(id, description, price, amount_left, category_id) {
+    updateProduct(id, description, price, amount_left, category_id, image) {
         return Product.findOneAndUpdate(
-            {_id: id},
+            { _id: id },
             {
-                $set: {description, price, amount_left, category_id}
+                $set: { description, price, amount_left, category_id, image },
             },
-            {new: true}
-            );
+            { new: true }
+        );
     }
     deleteProduct(id) {
-        return Product.deleteOne({id})
-
-
+        return Product.deleteOne({ id });
     }
 }
 
-const productDAO = new ProductDAO()
+const productDAO = new ProductDAO();
 
-export {productDAO}
+export { productDAO };

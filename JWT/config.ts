@@ -1,4 +1,3 @@
 export default {
-  secret: "SECRET_KEY"
-}
-
+    secret: "SECRET_KEY",
+};

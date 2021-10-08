@@ -1,3 +1,8 @@
 node_modules
 build
-
+.git
+.env
+volumes
+log
+start/log
+uploads
