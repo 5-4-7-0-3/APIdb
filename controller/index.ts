@@ -4,6 +4,7 @@ import { UserController } from "./user";
 import { SalesController } from "./sales";
 import { ProductCategoryController } from "./product_category";
 import { OrdersController } from "./orders";
+import { UploadsController } from "./uploads";
 
 const productController = new ProductController(services.productService);
 const userController = new UserController(
@@ -15,6 +16,7 @@ const productCategoryController = new ProductCategoryController(
     services.productCategoryService
 );
 const ordersController = new OrdersController(services.ordersService);
+const uploadsController = new UploadsController();
 
 export default {
     productController,
@@ -22,4 +24,5 @@ export default {
     salesController,
     productCategoryController,
     ordersController,
+    uploadsController,
 };

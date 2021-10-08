@@ -1,3 +1,5 @@
+import { HOST } from "../config";
+
 class ProductController {
     productService: any;
     constructor(productService) {
@@ -5,15 +7,17 @@ class ProductController {
     }
     async createProduct(req, res) {
         const { description, price, amount_left, category_id } = req.body;
+        const image = req.file.filename;
+
         const newProduct = await this.productService.createProduct(
             description,
             price,
             amount_left,
-            category_id
+            category_id,
+            image
         );
-
+        newProduct.image = HOST + "media/" + newProduct.image;
         res.json(newProduct);
-        console.log(newProduct);
     }
     async getProduct(req, res) {
         const product = await this.productService.getProduct();
@@ -27,14 +31,16 @@ class ProductController {
     }
     async updateProduct(req, res) {
         const { description, price, amount_left, category_id } = req.body;
+        const image = req.file.filename;
         const updateProduct = await this.productService.updateProduct(
             req.params.id,
             description,
             price,
             amount_left,
-            category_id
+            category_id,
+            image
         );
-        console.log(req.body);
+        updateProduct.image = HOST + "media/" + updateProduct.image;
         res.json(updateProduct);
     }
     async deleteProduct(req, res) {

@@ -5,13 +5,14 @@ class ProductService {
         this.productDAO = productDAO;
         this.notificationService = notificationService;
     }
-    createProduct(description, price, amount_left, category_id) {
+    createProduct(description, price, amount_left, category_id, image) {
         this.notificationService.sendAll(description);
         return this.productDAO.createProduct(
             description,
             price,
             amount_left,
-            category_id
+            category_id,
+            image
         );
     }
 
@@ -23,7 +24,7 @@ class ProductService {
         return this.productDAO.getOneProduct(id);
     }
 
-    updateProduct(id, description, price, amount_left, category_id) {
+    updateProduct(id, description, price, amount_left, category_id, image) {
         this.notificationService.sendAll(id);
         return this.productDAO.updateProduct(
             id,

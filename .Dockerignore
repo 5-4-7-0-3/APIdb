@@ -4,3 +4,4 @@ build
 node_modules
 volumes
 start/log
+.git
