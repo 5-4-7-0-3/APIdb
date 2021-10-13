@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "main": "index.js",
     "dependencies": {
+        "aws-sdk": "^2.1004.0",
         "bcryptjs": "^2.4.3",
         "editorconfig": "^0.15.3",
         "eiows": "^3.6.1",
@@ -17,7 +18,8 @@
         "socket.io-client": "^4.1.3",
         "swagger-jsdoc": "^6.1.0",
         "swagger-ui-express": "^4.1.6",
-        "ts-node": "^10.2.1"
+        "ts-node": "^10.2.1",
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
         "@tsconfig/node14": "^1.0.1",
