@@ -63,6 +63,24 @@ services:
         command: certbot --nginx -d api.com -d www.api.com
         restart: unless-stopped
         entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+    minio:
+        image: minio/minio:latest
+        container_name: minio
+        ports:
+            - "9000:9000"
+            - "9001:9001"
+        volumes:
+            - ./volumes/minio:/data
+        environment:
+            MINIO_ROOT_USER: admintest
+            MINIO_ROOT_PASSWORD: admintest
+            # MINIO_ACCESS_KEY: minio-access-key
+            # MINIO_SECRET_KEY: minio-secret-key
+        command: server /data
+        networks:
+            - app-network
 networks:
     app-network:
         driver: bridge
+# http://172.22.0.3:9000

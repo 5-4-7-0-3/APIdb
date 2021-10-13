@@ -9,8 +9,6 @@ import { setupDb } from "./db/db-setup";
 const PORT = process.env.PORT || 8080;
 import express from "express";
 
-import multer from "multer";
-
 require("express-async-errors");
 const app = require("express")();
 const server = require("http").createServer(app);
@@ -29,7 +27,7 @@ import routesUploads from "./routes/uploads";
 setupDb();
 
 app.use(express.json());
-app.use(express.static("uploads"));
+
 // app.use("/", (req, res) => {
 //     return res.json({ message: "HALO" });
 // });
